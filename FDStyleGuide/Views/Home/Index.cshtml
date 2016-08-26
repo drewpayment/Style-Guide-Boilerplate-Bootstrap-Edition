@@ -1,0 +1,112 @@
+﻿@model FDStyleGuide.Models.Component
+
+@{
+    var m = Model;
+}
+
+@helper BuildComponent(string data)
+{
+    <div class="col-lg-12 sg-section" id="sg-@data">
+        <div class="sg-display">
+            <h2 class="sg-display">@data</h2>
+            @Html.Partial("~/Views/Home/Partials/" + data + ".cshtml")
+        </div>
+    </div>
+}
+
+    <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header"> <a class="navbar-brand" href="#"><strong>Freedom Dev</strong> Style Guide</a> </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Select an element: <b class="caret"></b></a>
+                <ul class="dropdown-menu  scroll-menu sg-sect">
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation" class="dropdown-header">Documentation</li>
+                    <li>
+                        <a href="#">Docs</a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation" class="dropdown-header">Foundation</li>
+                    <li>
+                        <a href="#">Colors</a>
+                    </li>
+                    <li>
+                        <a href="#">Grid</a>
+                    </li>
+                    <li>
+                        <a href="#">Typography</a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation" class="dropdown-header">Base Styles</li>
+                    @foreach (var c in m.BaseList)
+                    {
+                        <li>
+                            <a href="#sg-@c.Name">@c.Name</a>
+                        </li>
+                    }
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation" class="dropdown-header">Patterns</li>
+                    @foreach (var c in m.PatternList)
+                    {
+                        <li>
+                            <a href="#">@c.Name</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--/.sg-header-->
+<div class="sg-body sg-container container">
+    <div class="row">
+        <h1 class="page-header">Style Guide Documentation</h1>
+        <div class="col-lg-12 sg-section" id="sg-About">
+            <div class="sg-display">
+                <h2 class="sg-display">About</h2>
+                @Html.Partial("~/Views/Home/Partials/about.cshtml")
+            </div>
+        </div>
+    </div>
+    <!--/.row-->
+    <div class="row">
+        <h1 class="page-header">Foundation</h1>
+        <div class="col-lg-12 sg-section" id="sg-Colors">
+            <div class="sg-display">
+                <h2 class="sg-display">Colors</h2>
+                @Html.Partial("~/Views/Home/Partials/colors.cshtml")
+            </div>
+        </div>
+        <div class="col-lg-12 sg-section" id="sg-Grid">
+            <div class="sg-display">
+                <h2 class="sg-display">Grid</h2>
+                @Html.Partial("~/Views/Home/Partials/grid.cshtml")
+            </div>
+        </div>
+        <div class="col-lg-12 sg-section" id="sg-Typography">
+            <div class="sg-display">
+                <h2 class="sg-display">Typography</h2>
+                @Html.Partial("~/Views/Home/Partials/typography.cshtml")
+            </div>
+        </div>
+    </div>
+    <!--/.row-->
+
+    <div class="row sg-base-styles">
+        <h1 class="page-header">Base Styles</h1>
+        @foreach (var markup in m.BaseList)
+        {
+            @BuildComponent(markup.Name)
+        }
+    </div><!--/.sg-base-styles-->
+    <div class="sg-pattern-styles">
+        <h1 class="page-header">Patterns<small> - Design and mark-up patterns unique to your site.</small></h1>
+        @foreach (var markup in m.PatternList)
+        {
+            @BuildComponent(markup.Name)
+        }
+    </div>
+    <!--/.sg-pattern-styles-->
+</div>
